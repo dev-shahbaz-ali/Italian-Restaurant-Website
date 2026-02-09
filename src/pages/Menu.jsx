@@ -343,36 +343,6 @@ const Menu = () => {
           </div>
         )}
 
-        {/* Menu Stats */}
-        <div className="mt-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-8 text-white shadow-xl">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold mb-2">{menuItems.length}+</div>
-              <p className="opacity-90 text-lg">Menu Items</p>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">
-                {(
-                  menuItems.reduce((sum, item) => sum + item.rating, 0) /
-                  menuItems.length
-                ).toFixed(1)}
-                /5
-              </div>
-              <p className="opacity-90 text-lg">Average Rating</p>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">100%</div>
-              <p className="opacity-90 text-lg">Fresh Ingredients</p>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">
-                {menuItems.filter((item) => item.popular).length}
-              </div>
-              <p className="opacity-90 text-lg">Popular Items</p>
-            </div>
-          </div>
-        </div>
-
         {/* Category Summary */}
         <div className="mt-12">
           <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
@@ -403,7 +373,7 @@ const Menu = () => {
                   </div>
                   <button
                     onClick={() => setActiveCategory(category.id)}
-                    className="w-full py-3 border border-amber-600 text-amber-600 rounded-lg hover:bg-amber-50 transition duration-300 font-medium"
+                    className="w-full py-3 border border-amber-600 text-amber-600 rounded-lg hover:bg-amber-50 transition duration-300 font-medium cursor-pointer"
                   >
                     View {category.name}
                   </button>
