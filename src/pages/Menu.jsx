@@ -87,7 +87,7 @@ const Menu = () => {
       price: "Rs 450",
       description: "Crispy bread with garlic butter and herbs",
       image:
-        "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPeOj1A1Z7h2fAZnF1b3NF4txwqEAI-aCQAA&s",
       category: "starters",
       rating: 4.4,
     },
