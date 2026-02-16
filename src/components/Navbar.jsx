@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Utensils } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Menu", path: "/menu" },
@@ -35,7 +35,10 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            <button className="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition duration-300 font-semibold cursor-pointer">
+            <button
+              onClick={() => navigate("/menu")}
+              className="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition duration-300 font-semibold cursor-pointer"
+            >
               Order Now
             </button>
           </div>

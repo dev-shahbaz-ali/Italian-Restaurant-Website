@@ -8,41 +8,35 @@ const Home = () => {
       icon: <Clock className="h-8 w-8" />,
       title: "Open Hours",
       description: "Mon-Sun: 11AM - 11PM",
-      bgColor: "bg-amber-50",
     },
     {
       icon: <MapPin className="h-8 w-8" />,
       title: "Location",
       description: "DHA Phase 5, Lahore",
-      bgColor: "bg-red-50",
     },
     {
       icon: <Phone className="h-8 w-8" />,
       title: "Call Us",
       description: "+92 300 1234567",
-      bgColor: "bg-emerald-50",
     },
     {
       icon: <Star className="h-8 w-8" />,
       title: "Rating",
       description: "4.9/5 (1200+ Reviews)",
-      bgColor: "bg-blue-50",
     },
   ];
 
   return (
     <div>
-      {/* Hero Banner */}
+      {/* Hero Banner with New Image */}
       <section className="relative h-screen flex items-center justify-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              'url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
+              'url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
           }}
-        >
-          <div className="absolute inset-0 bg-opacity-50"></div>
-        </div>
+        ></div>
 
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-amber-400">
@@ -80,57 +74,28 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="group relative">
-                {/* Glowing background effect */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-400 to-orange-500 rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
-
-                <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                  {/* Icon with animated background */}
-                  <div className="relative mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl transform rotate-6 opacity-60"></div>
-                    <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg">
-                      <div className="text-white transform group-hover:scale-110 transition-transform duration-300">
-                        {feature.icon}
-                      </div>
-                    </div>
-
-                    {/* Number badge */}
-                    <div className="absolute -top-3 -right-3 w-10 h-10 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
-                      {index + 1}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-2xl font-bold text-gray-800 mb-3 group-hover:text-amber-600 transition duration-300">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {feature.description}
-                  </p>
-
-                  {/* Learn more link */}
-                  <div className="flex items-center text-amber-600 font-medium opacity-0 group-hover:opacity-100 transition duration-300">
-                    <span>Learn more</span>
-                    <svg
-                      className="w-5 h-5 ml-2 transform group-hover:translate-x-2 transition-transform duration-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
+              <div
+                key={index}
+                className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              >
+                <div className="mb-6">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg">
+                    <div className="text-white">{feature.icon}</div>
                   </div>
                 </div>
+
+                <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
       {/* Special Offers */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

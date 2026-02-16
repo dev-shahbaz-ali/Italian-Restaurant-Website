@@ -8,7 +8,6 @@ import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import "./App.css";
 import ProductDetails from "./pages/ProductDetails";
-
 function App() {
   return (
     <Router>
