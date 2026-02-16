@@ -84,8 +84,9 @@ const Contact = () => {
             </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We'd love to hear from you. Send us a message and we'll respond as
-            soon as possible.
+            For reservations, home delivery, or any special request, please
+            contact us. We’re here to serve you and will respond promptly to
+            your inquiries.
           </p>
         </div>
 
@@ -163,9 +164,6 @@ const Contact = () => {
                     <span className="w-1 h-8 bg-amber-500 rounded-full mr-4"></span>
                     Send us a Message
                   </h2>
-                  <p className="text-gray-600 mt-2 ml-5">
-                    Have a question or feedback? We're here to help.
-                  </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">

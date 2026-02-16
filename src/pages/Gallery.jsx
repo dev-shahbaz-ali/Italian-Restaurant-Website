@@ -102,8 +102,7 @@ const Gallery = () => {
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">Our Gallery</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Take a visual tour of our restaurant, dishes, and the passion behind
-            our cooking
+            Explore our restaurant, dishes, and the passion behind every meal.
           </p>
         </div>
 

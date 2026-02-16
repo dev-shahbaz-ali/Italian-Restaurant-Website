@@ -154,8 +154,7 @@ const Menu = () => {
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">Our Menu</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover authentic Italian flavors prepared with the finest
-            ingredients
+            Authentic Italian flavors crafted with the finest ingredients.
           </p>
         </div>
 

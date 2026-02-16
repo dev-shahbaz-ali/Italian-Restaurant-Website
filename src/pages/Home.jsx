@@ -43,7 +43,8 @@ const Home = () => {
             Best Italian Food in Lahore
           </h1>
           <p className="text-xl md:text-2xl mb-8 font-light text-amber-400">
-            Authentic Italian cuisine made with love and passion
+            Authentic Italian cuisine made with love and passion. Reserve a
+            table, order delivery, or contact us anytime.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -67,8 +68,7 @@ const Home = () => {
               Why Choose <span className="text-amber-600">Bella Italia</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Experience the perfect blend of authentic Italian flavors and
-              exceptional service
+              Authentic Italian flavors paired with exceptional service.
             </p>
           </div>
 
