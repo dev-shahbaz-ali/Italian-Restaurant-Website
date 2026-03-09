@@ -34,15 +34,18 @@ const Home = () => {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              'url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
+              'url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=2070&q=80")',
           }}
         ></div>
 
+        <div className="absolute inset-0 bg-black/50"></div>
+
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-amber-400">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-yellow-400">
+            {" "}
             Best Italian Food in Lahore
           </h1>
-          <p className="text-xl md:text-2xl mb-8 font-light text-amber-400">
+          <p className="text-xl md:text-2xl mb-8 font-light text-yellow-400">
             Authentic Italian cuisine made with love and passion. Reserve a
             table, order delivery, or contact us anytime.
           </p>
