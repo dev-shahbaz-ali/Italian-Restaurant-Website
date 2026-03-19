@@ -1,1 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  background-color: #ffffff;
+  color: #0b0b0b;
+}
+
+.font-display {
+  font-family: "Playfair Display", serif;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes softFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.9s ease-out both;
+}
+
+.fade-up.delay-1 {
+  animation-delay: 120ms;
+}
+
+.fade-up.delay-2 {
+  animation-delay: 240ms;
+}
+
+.fade-up.delay-3 {
+  animation-delay: 360ms;
+}
+
+.hover-lift {
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.float-soft {
+  animation: softFloat 5s ease-in-out infinite;
+}
+
+.shimmer-line {
+  background: linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+  background-size: 200% 100%;
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .float-soft,
+  .hover-lift {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -9,117 +10,32 @@ import {
   ShoppingBag,
   Heart,
 } from "lucide-react";
+import { products } from "../data/products";
+import { useCart } from "../context/CartContext";
+import { fadeUp, stagger, hoverLift } from "../utils/motion";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addItem, openCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const productData = {
-    1: {
-      name: "Bruschetta",
-      price: 550,
-      description:
-        "Toasted bread topped with fresh tomatoes, garlic, and basil.",
-      category: "Starters",
-      rating: 4.8,
-      time: "15-20 mins",
-      image:
-        "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80",
-      ingredients: [
-        "Ciabatta Bread",
-        "Tomatoes",
-        "Garlic",
-        "Basil",
-        "Olive Oil",
-      ],
-    },
-    2: {
-      name: "Chicken Burger",
-      price: 650,
-      description:
-        "Juicy grilled chicken patty with lettuce and special sauce.",
-      category: "Main Course",
-      rating: 4.5,
-      time: "20-25 mins",
-      image:
-        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1998&q=80",
-      ingredients: [
-        "Chicken Patty",
-        "Brioche Bun",
-        "Lettuce",
-        "Tomato",
-        "Signature Sauce",
-      ],
-    },
-    3: {
-      name: "Margherita Pizza",
-      price: 1200,
-      description: "Classic pizza with tomatoes, mozzarella, and basil.",
-      category: "Main Course",
-      rating: 4.9,
-      time: "25-30 mins",
-      image:
-        "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80",
-      ingredients: [
-        "Pizza Dough",
-        "Tomatoes",
-        "Mozzarella",
-        "Basil",
-        "Olive Oil",
-      ],
-    },
-    4: {
-      name: "Pasta Carbonara",
-      price: 950,
-      description: "Spaghetti with eggs, cheese, pancetta, and black pepper.",
-      category: "Main Course",
-      rating: 4.7,
-      time: "20-25 mins",
-      image:
-        "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      ingredients: [
-        "Spaghetti",
-        "Eggs",
-        "Pancetta",
-        "Parmesan",
-        "Black Pepper",
-      ],
-    },
-    5: {
-      name: "Caesar Salad",
-      price: 700,
-      description:
-        "Fresh romaine with croutons, parmesan, and Caesar dressing.",
-      category: "Starters",
-      rating: 4.3,
-      time: "10-15 mins",
-      image:
-        "https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      ingredients: [
-        "Romaine Lettuce",
-        "Croutons",
-        "Parmesan",
-        "Caesar Dressing",
-      ],
-    },
-    6: {
-      name: "Tiramisu",
-      price: 750,
-      description: "Layers of coffee-soaked ladyfingers and mascarpone cream.",
-      category: "Desserts",
-      rating: 4.9,
-      time: "10-15 mins",
-      image:
-        "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      ingredients: ["Ladyfingers", "Coffee", "Mascarpone", "Cocoa Powder"],
-    },
+  const product = useMemo(() => {
+    const match = products.find((item) => item.id === Number(id));
+    return match || products[0];
+  }, [id]);
+
+  const categoryLabel = {
+    starters: "Starters",
+    main: "Main Course",
+    desserts: "Desserts",
   };
 
-  const product = productData[id] || productData[1];
-  const relatedProducts = Object.values(productData)
-    .filter((p) => p.category === product.category && p.name !== product.name)
+  const relatedProducts = products
+    .filter(
+      (item) => item.category === product.category && item.id !== product.id,
+    )
     .slice(0, 3);
 
   const handleQuantity = (type) => {
@@ -128,17 +44,17 @@ const ProductDetails = () => {
   };
 
   const handleAddToCart = () => {
-    alert(`✅ ${quantity}x ${product.name} added to cart!`);
+    addItem(product, quantity);
+    openCart();
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Back Button */}
-      <div className="bg-white">
+    <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-black/10">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-gray-600 hover:text-amber-600 hover:bg-gray-100 transition cursor-pointer rounded-full px-4 py-2"
+            className="flex items-center gap-2 text-black/70 hover:text-black hover:bg-black/5 transition cursor-pointer rounded-full px-4 py-2"
           >
             <ArrowLeft className="h-5 w-5" />
             <span>Back to Menu</span>
@@ -146,12 +62,16 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8 bg-white rounded-2xl shadow-lg p-8">
-          {/* Image Section */}
-          <div>
-            <div className="relative rounded-xl overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 py-10">
+        <motion.div
+          className="grid lg:grid-cols-2 gap-8 border border-black/10 rounded-3xl shadow-lg p-8 bg-white"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={stagger}
+        >
+          <motion.div variants={fadeUp}>
+            <div className="relative rounded-2xl overflow-hidden border border-black/10">
               <img
                 src={product.image}
                 alt={product.name}
@@ -162,34 +82,35 @@ const ProductDetails = () => {
                 className="absolute top-4 right-4 bg-white p-3 rounded-full shadow-md hover:shadow-lg transition"
               >
                 <Heart
-                  className={`h-5 w-5 ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"}`}
+                  className={`h-5 w-5 ${
+                    isFavorite ? "fill-black text-black" : "text-black/60"
+                  }`}
                 />
               </button>
             </div>
 
             <div className="flex gap-4 mt-4">
-              <div className="flex-1 bg-amber-50 p-4 rounded-xl text-center">
-                <Clock className="h-5 w-5 text-amber-600 mx-auto mb-1" />
-                <p className="text-sm text-gray-500">Prep Time</p>
+              <div className="flex-1 border border-black/10 p-4 rounded-2xl text-center">
+                <Clock className="h-5 w-5 text-black mx-auto mb-1" />
+                <p className="text-sm text-black/50">Prep Time</p>
                 <p className="font-semibold">{product.time}</p>
               </div>
-              <div className="flex-1 bg-amber-50 p-4 rounded-xl text-center">
+              <div className="flex-1 border border-black/10 p-4 rounded-2xl text-center">
                 <div className="flex justify-center mb-1">
-                  <Star className="h-5 w-5 text-amber-600 fill-amber-600" />
+                  <Star className="h-5 w-5 text-black fill-black" />
                 </div>
-                <p className="text-sm text-gray-500">Rating</p>
+                <p className="text-sm text-black/50">Rating</p>
                 <p className="font-semibold">{product.rating}/5</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Details Section */}
-          <div>
-            <span className="inline-block bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold mb-4">
-              {product.category}
+          <motion.div variants={fadeUp}>
+            <span className="inline-block bg-black text-white px-3 py-1 rounded-full text-xs uppercase tracking-[0.2em] mb-4">
+              {categoryLabel[product.category] || product.category}
             </span>
 
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">
+            <h1 className="text-4xl font-bold text-black mb-4 font-display">
               {product.name}
             </h1>
 
@@ -200,33 +121,32 @@ const ProductDetails = () => {
                     key={i}
                     className={`h-5 w-5 ${
                       i < Math.floor(product.rating)
-                        ? "text-amber-500 fill-amber-500"
-                        : "text-gray-300"
+                        ? "text-black fill-black"
+                        : "text-black/20"
                     }`}
                   />
                 ))}
               </div>
-              <span className="text-gray-600">({product.rating})</span>
+              <span className="text-black/60">({product.rating})</span>
             </div>
 
-            <p className="text-gray-600 text-lg mb-6">{product.description}</p>
+            <p className="text-black/60 text-lg mb-6">{product.description}</p>
 
             <div className="mb-6">
-              <span className="text-4xl font-bold text-gray-800">
+              <span className="text-4xl font-bold text-black">
                 Rs {product.price}
               </span>
             </div>
 
-            {/* Ingredients */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
+              <h3 className="text-lg font-semibold text-black mb-3">
                 Ingredients
               </h3>
               <div className="flex flex-wrap gap-2">
                 {product.ingredients.map((item, index) => (
                   <span
                     key={index}
-                    className="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm"
+                    className="border border-black/10 text-black px-4 py-2 rounded-full text-sm"
                   >
                     {item}
                   </span>
@@ -234,16 +154,15 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Quantity */}
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-black mb-3">
                 Quantity
               </h3>
               <div className="flex items-center gap-6">
-                <div className="flex items-center border rounded-full">
+                <div className="flex items-center border border-black/10 rounded-full">
                   <button
                     onClick={() => handleQuantity("decrease")}
-                    className="p-3 hover:bg-gray-100 rounded-l-full transition cursor-pointer"
+                    className="p-3 hover:bg-black/5 rounded-l-full transition cursor-pointer"
                   >
                     <Minus className="h-4 w-4" />
                   </button>
@@ -252,68 +171,71 @@ const ProductDetails = () => {
                   </span>
                   <button
                     onClick={() => handleQuantity("increase")}
-                    className="p-3 hover:bg-gray-100 rounded-r-full transition cursor-pointer"
+                    className="p-3 hover:bg-black/5 rounded-r-full transition cursor-pointer"
                   >
                     <Plus className="h-4 w-4" />
                   </button>
                 </div>
-                <span className="text-gray-600">
+                <span className="text-black/60">
                   Total:{" "}
-                  <span className="font-bold text-amber-600">
+                  <span className="font-bold text-black">
                     Rs {product.price * quantity}
                   </span>
                 </span>
               </div>
             </div>
 
-            {/* Add to Cart */}
             <button
               onClick={handleAddToCart}
-              className="w-full bg-amber-600 text-white py-4 rounded-xl hover:bg-amber-700 font-bold text-lg flex items-center justify-center gap-3 transition cursor-pointer"
+              className="w-full bg-black text-white py-4 rounded-full hover:bg-black/90 font-bold text-lg flex items-center justify-center gap-3 transition cursor-pointer"
             >
               <ShoppingBag className="h-5 w-5" />
-              Add to Cart • Rs {product.price * quantity}
+              Add to Cart - Rs {product.price * quantity}
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+          <motion.div
+            className="mt-12"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, amount: 0.2 }}
+            variants={stagger}
+          >
+            <h2 className="text-2xl font-bold text-black mb-6">
               You May Also Like
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {relatedProducts.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
+              {relatedProducts.map((item) => (
+                <motion.div
+                  key={item.id}
+                  className="border border-black/10 rounded-2xl hover:shadow-lg transition overflow-hidden bg-white"
+                  variants={fadeUp}
+                  whileHover={hoverLift.whileHover}
+                  transition={hoverLift.transition}
                 >
                   <div className="h-48 overflow-hidden">
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-full object-cover hover:scale-110 transition duration-300"
+                      className="w-full h-full object-cover hover:scale-105 transition duration-300"
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-bold text-gray-800 mb-1">
-                      {item.name}
-                    </h3>
-                    <p className="text-amber-600 font-bold mb-3">
-                      Rs {item.price}
-                    </p>
+                    <h3 className="font-bold text-black mb-1">{item.name}</h3>
+                    <p className="text-black font-bold mb-3">Rs {item.price}</p>
                     <button
-                      onClick={() => navigate(`/product/${index + 4}`)}
-                      className="w-full py-2 border border-amber-600 text-amber-600 rounded-lg hover:bg-amber-50 transition font-medium cursor-pointer"
+                      onClick={() => navigate(`/product/${item.id}`)}
+                      className="w-full py-2 border border-black/20 text-black rounded-lg hover:bg-black hover:text-white transition font-medium cursor-pointer"
                     >
                       View Details
                     </button>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
