@@ -4,11 +4,13 @@ import { ArrowRight, Clock, MapPin, Phone, Star, Sparkles, Quote } from "lucide-
 import { Link } from "react-router-dom";
 import { products } from "../data/products";
 import { useCart } from "../context/CartContext";
-import { fadeIn, fadeUp, stagger, hoverLift } from "../utils/motion";
+import { fadeIn, fadeUp, stagger, hoverLift, getInViewProps } from "../utils/motion";
 import { site } from "../data/site";
 
 const Home = () => {
   const { addItem, openCart } = useCart();
+  const inViewProps = getInViewProps();
+  const heroProps = getInViewProps();
 
   const features = [
     { icon: <Clock className="h-6 w-6" />, title: "Open Hours", description: "Mon-Sun: 11AM - 11PM" },
@@ -28,8 +30,7 @@ const Home = () => {
             backgroundImage:
               'url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=2070&q=80")',
           }}
-          initial="hidden"
-          animate="show"
+          {...heroProps}
           variants={fadeIn}
         />
         <div className="absolute inset-0 bg-black/60" />
@@ -45,7 +46,7 @@ const Home = () => {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36">
-          <motion.div className="max-w-3xl" initial="hidden" animate="show" variants={stagger}>
+          <motion.div className="max-w-3xl" {...heroProps} variants={stagger}>
             <p className="text-white/70 uppercase tracking-[0.35em] text-sm mb-5">
               {site.tagline}
             </p>
@@ -79,9 +80,7 @@ const Home = () => {
       <section className="py-16 border-b border-black/10">
         <motion.div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          {...inViewProps}
           variants={stagger}
         >
           {features.map((feature, index) => (
@@ -106,9 +105,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: false, amount: 0.2 }}
+            {...inViewProps}
             variants={stagger}
           >
             <div>
@@ -126,9 +123,7 @@ const Home = () => {
 
           <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: false, amount: 0.2 }}
+            {...inViewProps}
             variants={stagger}
           >
             {specials.map((item) => (
@@ -170,7 +165,7 @@ const Home = () => {
 
       <section className="py-20 border-t border-black/10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.2 }} variants={stagger}>
+          <motion.div {...inViewProps} variants={stagger}>
             <p className="text-sm uppercase tracking-[0.35em] text-black/50 mb-4">Our Story</p>
             <motion.h2 className="text-4xl md:text-5xl font-bold font-display mb-6 text-black" variants={fadeUp}>
               Small kitchen, big heart.
@@ -183,13 +178,7 @@ const Home = () => {
               <p className="text-black/70">{site.chefNote}</p>
             </motion.div>
           </motion.div>
-          <motion.div
-            className="grid grid-cols-1 gap-6"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: false, amount: 0.2 }}
-            variants={stagger}
-          >
+          <motion.div className="grid grid-cols-1 gap-6" {...inViewProps} variants={stagger}>
             {site.testimonials.map((item, index) => (
               <motion.div
                 key={index}
@@ -231,13 +220,7 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <motion.div
-            className="grid grid-cols-2 gap-6"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: false, amount: 0.2 }}
-            variants={stagger}
-          >
+          <motion.div className="grid grid-cols-2 gap-6" {...inViewProps} variants={stagger}>
             {products.slice(0, 4).map((item) => (
               <motion.div
                 key={item.id}
