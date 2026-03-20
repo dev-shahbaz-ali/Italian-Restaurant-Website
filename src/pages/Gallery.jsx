@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { fadeUp, stagger, hoverLift } from "../utils/motion";
+import { fadeUp, stagger, hoverLift, getInViewProps } from "../utils/motion";
 import { site } from "../data/site";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const inViewProps = getInViewProps();
 
   const images = [
     {
@@ -99,9 +100,7 @@ const Gallery = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          {...inViewProps}
           variants={stagger}
         >
           <p className="text-sm uppercase tracking-[0.35em] text-black/50 mb-3">
@@ -136,9 +135,7 @@ const Gallery = () => {
 
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          {...inViewProps}
           variants={stagger}
         >
           {filteredImages.map((image) => (
@@ -209,3 +206,4 @@ const Gallery = () => {
 };
 
 export default Gallery;
+
