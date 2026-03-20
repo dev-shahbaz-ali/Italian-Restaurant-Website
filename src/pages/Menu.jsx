@@ -4,7 +4,7 @@ import { Star, ChefHat, Flame, Leaf, ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { categories, products } from "../data/products";
 import { useCart } from "../context/CartContext";
-import { fadeUp, stagger, hoverLift } from "../utils/motion";
+import { fadeUp, stagger, hoverLift, getInViewProps } from "../utils/motion";
 
 const categoryIcons = {
   all: <ChefHat className="h-4 w-4" />,
@@ -16,6 +16,7 @@ const categoryIcons = {
 const Menu = () => {
   const navigate = useNavigate();
   const { addItem, openCart } = useCart();
+  const inViewProps = getInViewProps();
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredItems = useMemo(() => {
@@ -28,9 +29,7 @@ const Menu = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          {...inViewProps}
           variants={stagger}
         >
           <p className="text-sm uppercase tracking-[0.35em] text-black/50 mb-3">
@@ -66,9 +65,7 @@ const Menu = () => {
 
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          {...inViewProps}
           variants={stagger}
         >
           {filteredItems.map((item) => (
@@ -152,3 +149,4 @@ const Menu = () => {
 };
 
 export default Menu;
+

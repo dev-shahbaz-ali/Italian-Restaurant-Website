@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
-import { fadeUp, stagger, hoverLift } from "../utils/motion";
+import { fadeUp, stagger, hoverLift, getInViewProps } from "../utils/motion";
 import { site } from "../data/site";
 
 const Contact = () => {
@@ -12,6 +12,7 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const inViewProps = getInViewProps();
 
   const handleChange = (e) => {
     setFormData({
@@ -62,9 +63,7 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          {...inViewProps}
           variants={stagger}
         >
           <p className="text-sm uppercase tracking-[0.35em] text-black/50 mb-3">Contact</p>
@@ -83,9 +82,7 @@ const Contact = () => {
           <div className="space-y-6">
             <motion.div
               className="bg-white rounded-3xl shadow-xl p-8 border border-black/10"
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: false, amount: 0.2 }}
+              {...inViewProps}
               variants={stagger}
             >
               <h2 className="text-3xl font-bold text-black mb-8 flex items-center">
@@ -137,9 +134,7 @@ const Contact = () => {
 
           <motion.div
             className="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-black/10"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: false, amount: 0.2 }}
+            {...inViewProps}
             variants={fadeUp}
           >
             {isSubmitted ? (
@@ -239,3 +234,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

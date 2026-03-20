@@ -26,3 +26,16 @@ export const hoverLift = {
   transition: { duration: 0.25, ease: "easeOut" },
 };
 
+export const isScreenshotMode = () => {
+  if (typeof window === "undefined") return false;
+  return window.location.search.includes("screenshot=1");
+};
+
+export const getInViewProps = () => {
+  if (isScreenshotMode()) {
+    return { initial: false, animate: "show" };
+  }
+
+  return { initial: "hidden", whileInView: "show", viewport: { once: false, amount: 0.2 } };
+};
+

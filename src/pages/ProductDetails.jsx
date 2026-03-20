@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { products } from "../data/products";
 import { useCart } from "../context/CartContext";
-import { fadeUp, stagger, hoverLift } from "../utils/motion";
+import { fadeUp, stagger, hoverLift, getInViewProps } from "../utils/motion";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -20,6 +20,7 @@ const ProductDetails = () => {
   const { addItem, openCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
+  const inViewProps = getInViewProps();
 
   const product = useMemo(() => {
     const match = products.find((item) => item.id === Number(id));
@@ -65,9 +66,7 @@ const ProductDetails = () => {
       <div className="max-w-6xl mx-auto px-4 py-10">
         <motion.div
           className="grid lg:grid-cols-2 gap-8 border border-black/10 rounded-3xl shadow-lg p-8 bg-white"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          {...inViewProps}
           variants={stagger}
         >
           <motion.div variants={fadeUp}>
@@ -196,13 +195,7 @@ const ProductDetails = () => {
         </motion.div>
 
         {relatedProducts.length > 0 && (
-          <motion.div
-            className="mt-12"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: false, amount: 0.2 }}
-            variants={stagger}
-          >
+          <motion.div className="mt-12" {...inViewProps} variants={stagger}>
             <h2 className="text-2xl font-bold text-black mb-6">
               You May Also Like
             </h2>
